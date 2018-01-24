@@ -1,0 +1,29 @@
+{
+  "name": "patrec",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "nodemon server.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/pd29/patrec.git"
+  },
+  "author": "pd29",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/pd29/patrec/issues"
+  },
+  "homepage": "https://github.com/pd29/patrec#readme",
+  "devDependencies": {
+    "jshint": "^2.9.5",
+    "nodemon": "^1.14.11"
+  },
+  "dependencies": {
+    "express": "^4.16.2",
+    "mongoose": "^5.0.1",
+    "victor": "^1.1.0"
+  }
+}
