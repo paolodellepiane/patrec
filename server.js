@@ -3,17 +3,20 @@ var express = require('express'),
   port = process.env.PORT || 3000,
   mongoose = require('mongoose'),
   points = require('./api/patrec-model'),
-  bodyParser = require('body-parser');
+  bodyParser = require('body-parser'),
+  u = require('./api/u');
 
-mongoose.Promise = global.Promise;
-mongoose.connect('mongodb://localhost/Tododb');
+u.test();
 
-app.use(bodyParser.urlencoded({ extended: true }));
-app.use(bodyParser.json());
+// mongoose.Promise = global.Promise;
+// mongoose.connect('mongodb://localhost/Tododb');
 
-var routes = require('./api/patrec-routes');
-routes(app);
+// app.use(bodyParser.urlencoded({ extended: true }));
+// app.use(bodyParser.json());
 
-app.listen(port);
+// var routes = require('./api/patrec-routes');
+// routes(app);
+
+// app.listen(port);
 
 console.log('patrec RESTful API server started on: ' + port);
