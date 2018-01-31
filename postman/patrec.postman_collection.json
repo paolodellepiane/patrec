@@ -1,0 +1,104 @@
+{
+	"info": {
+		"name": "patrec",
+		"_postman_id": "7c71d66e-ca5c-50c9-900c-3d2d9f8d8190",
+		"description": "",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "http://localhost:3000/space",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"url": {
+					"raw": "http://localhost:3000/space",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"space"
+					]
+				},
+				"description": null
+			},
+			"response": []
+		},
+		{
+			"name": "add point",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "[\n{ \"x\": 0, \"y\": 0 },\n{ \"x\": 4, \"y\": 2 },\n{ \"x\": 8, \"y\": 4 },\n{ \"x\": 5, \"y\": 5 },\n{ \"x\": 6, \"y\": 8 },\n{ \"x\": 12, \"y\": 6 }\n]"
+				},
+				"url": {
+					"raw": "http://localhost:3000/point",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"point"
+					]
+				},
+				"description": null
+			},
+			"response": []
+		},
+		{
+			"name": "delete point",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"body": {},
+				"url": {
+					"raw": "http://localhost:3000/point/5a686d68bbee8626fa6d34a5",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"point",
+						"5a686d68bbee8626fa6d34a5"
+					]
+				},
+				"description": null
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:3000/lines/3",
+			"request": {
+				"method": null,
+				"header": [],
+				"body": {},
+				"url": {
+					"raw": "http://localhost:3000/lines/3",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"lines",
+						"3"
+					]
+				},
+				"description": null
+			},
+			"response": []
+		}
+	]
+}
