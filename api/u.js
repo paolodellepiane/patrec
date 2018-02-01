@@ -13,17 +13,6 @@ exports.getCollinearLines = (space, n) => {
         .map(x => x.map(p => ({ x: p.x, y: p.y })));
 }
 
-arePointsCollinear = ps => {
-    if (ps.length <= 2) return true;
-    const base = slope(ps[0], ps[1]);
-    if (!isFinite(base)) return false;
-    return ps.slice(2).every(p => {
-        let s2 = slope(ps[0], p);
-        if (!isFinite(s2)) return false;
-        return s2 === base;
-    });
-};
-
 slope = (a, b) => (b.y - a.y) / (b.x - a.x);
 
 union = (a, b) => [...new Set([...a, ...b])].sort();
@@ -42,6 +31,17 @@ permute = (arr, n) => {
     __recpermute(0, []);
     return res;
 }
+
+arePointsCollinear = ps => {
+    if (ps.length <= 2) return true;
+    const base = slope(ps[0], ps[1]);
+    if (!isFinite(base)) return false;
+    return ps.slice(2).every(p => {
+        let s2 = slope(ps[0], p);
+        if (!isFinite(s2)) return false;
+        return s2 === base;
+    });
+};
 
 areLinesCollinear = (a, b) => {
     let count = 0;

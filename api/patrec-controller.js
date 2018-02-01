@@ -1,8 +1,13 @@
 const Db = require('tingodb')().Db,
     assert = require('assert'),
-    db = new Db(__dirname + '/../data', {}),
-    points = db.collection('points'),
+    fs = require('fs'),
     u = require('./u');
+
+const dbPath = __dirname + '/../data';
+if (!fs.existsSync(dbPath))
+    fs.mkdirSync(dbPath);
+const db = new Db(dbPath, {}),
+    points = db.collection('points');
 
 exports.addPoint = (req, res) => {
     points.insert(req.body, (err, p) => {
