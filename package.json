@@ -23,7 +23,6 @@
   },
   "dependencies": {
     "express": "^4.16.2",
-    "tingodb": "^0.5.1",
-    "victor": "^1.1.0"
+    "tingodb": "^0.5.1"
   }
 }
