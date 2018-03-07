@@ -31,12 +31,13 @@ withPoints = (lines, ps) => {
     return lines;
 }
 
+calculateLines = space =>
+    [...permute(space)
+        .reduce(withPoints, new Map())
+        .values()];
+
 exports.getCollinearLines = space => n =>
     calculateLines(space)
         .filter(l => l.size >= n)
         .map(s => [...s.values()].map(p => ({ x: p.x, y: p.y })));
 
-calculateLines = space =>
-    [...permute(space)
-        .reduce(withPoints, new Map())
-        .values()];
