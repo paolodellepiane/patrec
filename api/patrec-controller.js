@@ -39,11 +39,11 @@ exports.deleteSpace = (req, res) => {
 
 exports.getLines = (req, res) => {
     const n = parseInt(req.params.n);
-    if (isNaN(n)) res.send('param must be a number');
+    if (isNaN(n)) { res.send('param must be a number'); return; }
     points.find({}).toArray((err, space) => {
-        if (err) res.send(err);
+        if (err) { res.send(err); return; }
         try {
-            res.json(u.getCollinearLines(space, n))
+            res.json(u.getCollinearLines(space)(n))
         } catch (e) {
             res.send(e.message)
         }

@@ -1,51 +1,42 @@
-exports.getCollinearLines = (space, n) => {
-    let collinearLines = permute(space, n).filter(t => arePointsCollinear(t));
-    collinearLines = collinearLines.map((l, i, a) => {
-        if (!l.done) {
-            l.done = true;
-            return [l].concat(a.slice(i + 1)
-                .filter(l2 => !l2.done && areLinesCollinear(l, l2))
-                .map(l2 => { l2.done = true; return l2; }));
-        }
-    }).filter(a => a);
-    return collinearLines
-        .map(x => x.reduce((acc, v) => union(acc, v), []))
-        .map(x => x.map(p => ({ x: p.x, y: p.y })));
-}
-
-slope = (a, b) => (b.y - a.y) / (b.x - a.x);
-
-union = (a, b) => [...new Set([...a, ...b])].sort();
-
-permute = (arr, n) => {
-    let res = [];
-    __recpermute = (start, head) => {
-        if (head.length >= n) {
-            res.push(head.map(h => arr[h]));
-            return;
-        }
-        for (let i = start; i < arr.length; i++) {
-            __recpermute(i + 1, [...head, i]);
-        }
-    }
-    __recpermute(0, []);
+permute = arr => {
+    res = [];
+    for (let i = 0; i < arr.length; i++)
+        for (let j = i + 1; j < arr.length; j++)
+            res.push([arr[i], arr[j]]);
     return res;
 }
 
-arePointsCollinear = ps => {
-    if (ps.length <= 2) return true;
-    const base = slope(ps[0], ps[1]);
-    if (!isFinite(base)) return false;
-    return ps.slice(2).every(p => {
-        let s2 = slope(ps[0], p);
-        if (!isFinite(s2)) return false;
-        return s2 === base;
-    });
-};
+origin = (a, b) => (b.x * a.y - a.x * b.y) / (b.x - a.x);
 
-areLinesCollinear = (a, b) => {
-    let count = 0;
-    for (let i = 0; i < a.length; i++)
-        if (b.includes(a[i]) && ++count === 2) return true;
-    return false;
-};
+slope = (a, b) => (b.y - a.y) / (b.x - a.x);
+
+areEquals = (a, b) => a.x === b.x && a.y === b.y;
+
+simpleHash = (a, b) => {
+    if (b.x === a.x) return a.x;
+    return `${slope(a, b)},${origin(a, b)}`;
+}
+
+union = (a, b) => [...new Set([...a, ...b])].sort();
+
+withPoints = (lines, ps) => {
+    const a = ps[0], b = ps[1];
+    if (areEquals(a, b)) return;
+    let hash = simpleHash(a, b);
+    if (!lines.has(hash))
+        lines.set(hash, new Set());
+    lines.get(hash)
+        .add(a)
+        .add(b);
+    return lines;
+}
+
+exports.getCollinearLines = space => n =>
+    calculateLines(space)
+        .filter(l => l.size >= n)
+        .map(s => [...s.values()].map(p => ({ x: p.x, y: p.y })));
+
+calculateLines = space =>
+    [...permute(space)
+        .reduce(withPoints, new Map())
+        .values()];
